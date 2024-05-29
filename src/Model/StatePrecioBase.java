@@ -11,4 +11,9 @@ public class StatePrecioBase implements StateReserva {
     public double calcularPrecioFinalReserva(double precioBase) {
         return precioBase *porcentaje;
     }
+
+    @Override
+    public void cambiarValor(double nuevoValor) {
+        porcentaje=nuevoValor;
+    }
 }

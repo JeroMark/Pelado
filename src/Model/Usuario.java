@@ -1,5 +1,7 @@
 package Model;
 
+import Enum.TipoContacto;
+
 public abstract class Usuario {
     protected int dni;
     protected String nombre;

@@ -1,5 +1,8 @@
 package Model;
+import Enum.TipoContacto;
+public class Gerente extends Usuario{
 
-public class Gerente {
-    private Facu Penta=False
+    public Gerente(int dni, String nombre, String apellido, String telefono, String mail, TipoContacto tipoContacto, String contrasenia) {
+        super(dni, nombre, apellido, telefono, mail, tipoContacto, contrasenia);
+    }
 }

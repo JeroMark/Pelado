@@ -1,6 +1,9 @@
 package Model;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
+import Enum.MedioDePago;
 
 public class Factura {
     private Cliente cliente;
@@ -9,13 +12,12 @@ public class Factura {
     private double total;
     private int idReserva;
 
-    public Factura(String apellidoCliente, String nombreCliente, MedioDePago medioDePago, Date fecha, int dniCliente, float total) {
-        this.apellidoCliente = apellidoCliente;
-        this.nombreCliente = nombreCliente;
+    public Factura(Cliente cliente, MedioDePago medioDePago,double total,int idReserva) {
+        this.cliente=cliente;
         this.medioDePago = medioDePago;
-        this.fecha = fecha;
-        this.dniCliente = dniCliente;
+        this.fecha = getFechaActual();
         this.total = total;
+        this.idReserva=idReserva;
     }
     public String toString(){
         return ("Reserva: "+idReserva+" a nombre de: "+ cliente.getNombre()+""+cliente.getApellido()+". Pagado con: "+

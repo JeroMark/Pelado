@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.Date;
+import Enum.TipoTarjeta;
 
 public class Tarjeta {
     private int numeroTarjeta;
