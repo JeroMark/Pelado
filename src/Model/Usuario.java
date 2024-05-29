@@ -7,13 +7,15 @@ public abstract class Usuario {
     protected String telefono;
     protected String mail;
     protected TipoContacto tipoContacto;
-    public Usuario(int dni, String nombre, String apellido,String telefono, String mail, TipoContacto tipoContacto){
+    protected String contrasenia;
+    public Usuario(int dni, String nombre, String apellido,String telefono, String mail, TipoContacto tipoContacto,String contrasenia){
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.mail = mail;
         this.tipoContacto = tipoContacto;
+        this.contrasenia=contrasenia;
     }
     public int getDni(){
         return dni;
@@ -33,4 +35,5 @@ public abstract class Usuario {
     public String getApellido(){
         return apellido;
     }
+    public String getContrasenia(){return contrasenia;}
 }

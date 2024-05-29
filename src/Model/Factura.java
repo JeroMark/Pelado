@@ -3,12 +3,11 @@ package Model;
 import java.util.Date;
 
 public class Factura {
-    private String apellidoCliente;
-    private String nombreCliente;
+    private Cliente cliente;
     private MedioDePago medioDePago;
     private Date fecha;
-    private int dniCliente;
-    private float total;
+    private double total;
+    private int idReserva;
 
     public Factura(String apellidoCliente, String nombreCliente, MedioDePago medioDePago, Date fecha, int dniCliente, float total) {
         this.apellidoCliente = apellidoCliente;
@@ -18,17 +17,13 @@ public class Factura {
         this.dniCliente = dniCliente;
         this.total = total;
     }
-    public int getDatosCliente(){
-        return dniCliente;
+    public String toString(){
+        return ("Reserva: "+idReserva+" a nombre de: "+ cliente.getNombre()+""+cliente.getApellido()+". Pagado con: "+
+        medioDePago+" el dia: "+fecha+" .Con un total de $"+total+" pesos.");
     }
-
-    public MedioDePago getMedioDePago() {
-        return medioDePago;
-    }
-    public float getTotal(){
-        return total;
-    }
-    public Date getFecha(){
-        return fecha;
+    private Date getFechaActual(){
+        LocalDateTime localDateTime = LocalDateTime.now();
+        Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        return date;
     }
 }

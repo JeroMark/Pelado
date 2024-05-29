@@ -1,5 +1,6 @@
 package Interfaz;
 
 public interface StateReserva {
-    float calcularPrecioFinalReserva(float precioBase);
+    double calcularPrecioFinalReserva(double precioBase);
+    void cambiarValor(double nuevoValor);
 }

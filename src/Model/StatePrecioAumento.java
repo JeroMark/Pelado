@@ -4,7 +4,16 @@ import Interfaz.StateReserva;
 
 public class StatePrecioAumento implements StateReserva {
 
-    public float calcularPrecioFinalReserva(float precioBase) {
-        return precioBase * 1.2f;
+    private double porcentaje;
+    public StatePrecioAumento(){
+        this.porcentaje=1.2;
+    }
+    public double calcularPrecioFinalReserva(double precioBase) {
+        return precioBase * porcentaje;
+    }
+
+    @Override
+    public void cambiarValor(double nuevoValor) {
+        this.porcentaje=nuevoValor;
     }
 }
