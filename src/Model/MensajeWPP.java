@@ -1,7 +1,8 @@
 package Model;
 
-import Interfaz.ServicioMensajeria;
-import Enum.EstadoReserva;
+import Model.Enum.EstadoReserva;
+import Model.Interfaz.ServicioMensajeria;
+
 import java.util.ArrayList;
 
 public class MensajeWPP implements ServicioMensajeria {
@@ -12,13 +13,12 @@ public class MensajeWPP implements ServicioMensajeria {
         System.out.println(f.toString());
     }
 
-
-
     @Override
     public void notificarCambioDeEstado(EstadoReserva estadoReserva, int idReserva, String contacto) {
         System.out.println("**ENVIANDO POR WHATSAPP**");
-        System.out.println("La reserva: "+idReserva+" cambio a: "+estadoReserva);
+        System.out.println("La reserva: " + idReserva + " cambio a: " + estadoReserva);
     }
+
     @Override
     public void enviarPromocion(ArrayList<String> contacto) {
 

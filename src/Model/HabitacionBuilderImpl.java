@@ -1,7 +1,7 @@
 package Model;
 
-import Interfaz.HabitacionBuilder;
-import Enum.TipoHabitacion;
+import Model.Enum.TipoHabitacion;
+import Model.Interfaz.HabitacionBuilder;
 
 public class HabitacionBuilderImpl implements HabitacionBuilder {
     private boolean despertador;
@@ -11,29 +11,33 @@ public class HabitacionBuilderImpl implements HabitacionBuilder {
     private int cantidadDePersonas;
     private TipoHabitacion tipoHabitacion;
 
-    public HabitacionBuilderImpl(int cantidadDePersonas, TipoHabitacion tipoHabitacion){
-        this.tipoHabitacion=tipoHabitacion;
-        this.cantidadDePersonas=cantidadDePersonas;
-        this.tv=false;
-        this.despertador=false;
-        this.minibar=false;
-        this.internet=false;
+    public HabitacionBuilderImpl(int cantidadDePersonas, TipoHabitacion tipoHabitacion) {
+        this.tipoHabitacion = tipoHabitacion;
+        this.cantidadDePersonas = cantidadDePersonas;
+        this.tv = false;
+        this.despertador = false;
+        this.minibar = false;
+        this.internet = false;
     }
+
     @Override
     public void conDespertador() {
-        this.despertador=true;
+        this.despertador = true;
     }
+
     @Override
     public void conTv() {
-        this.tv=true;
+        this.tv = true;
     }
+
     @Override
     public void conInternet() {
-        this.internet=true;
+        this.internet = true;
     }
+
     @Override
     public void conMiniBar() {
-        this.minibar=true;
+        this.minibar = true;
     }
 
     @Override
@@ -66,7 +70,7 @@ public class HabitacionBuilderImpl implements HabitacionBuilder {
         return cantidadDePersonas;
     }
 
-    public Habitacion build(){
+    public Habitacion build() {
         return new Habitacion(this);
     }
 }

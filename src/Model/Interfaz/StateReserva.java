@@ -1,6 +1,7 @@
-package Interfaz;
+package Model.Interfaz;
 
 public interface StateReserva {
     double calcularPrecioFinalReserva(double precioBase);
+
     void cambiarValor(double nuevoValor);
 }

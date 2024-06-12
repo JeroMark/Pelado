@@ -1,7 +1,8 @@
 package Model;
 
-import Interfaz.ServicioMensajeria;
-import Enum.EstadoReserva;
+import Model.Enum.EstadoReserva;
+import Model.Interfaz.ServicioMensajeria;
+
 import java.util.ArrayList;
 
 public class MensajeSms implements ServicioMensajeria {
@@ -15,7 +16,7 @@ public class MensajeSms implements ServicioMensajeria {
     @Override
     public void notificarCambioDeEstado(EstadoReserva estadoReserva, int idReserva, String contacto) {
         System.out.println("**ENVIANDO POR SMS**");
-        System.out.println("La reserva: "+idReserva+" cambio a: "+estadoReserva);
+        System.out.println("La reserva: " + idReserva + " cambio a: " + estadoReserva);
     }
 
     @Override

@@ -1,8 +1,9 @@
 package Model;
 
 import java.util.ArrayList;
-import Enum.TipoHabitacion;
-import Enum.ExtrasHabitacion;
+
+import Model.Enum.ExtrasHabitacion;
+import Model.Enum.TipoHabitacion;
 import View.HabitacionView;
 
 public class Habitacion {
@@ -14,50 +15,54 @@ public class Habitacion {
     private boolean internet;
     private boolean minibar;
     private int cantidadDePersonas;
-    private ArrayList <DetalleReserva> detallesReserva;
+    private ArrayList<DetalleReserva> detallesReserva;
 
-
-    public Habitacion(HabitacionBuilderImpl builder){
+    public Habitacion(HabitacionBuilderImpl builder) {
         id++;
-        this.idHabitacion=id;
-        this.tipoDeHabitacion=builder.getTipoHabitacion();
-        this.despertador=builder.getDespertador();
-        this.tv=builder.getTv();
-        this.internet=builder.getInternet();
-        this.minibar=builder.getMiniBar();
-        this.cantidadDePersonas=builder.getCantidadPersonas();
+        this.idHabitacion = id;
+        this.tipoDeHabitacion = builder.getTipoHabitacion();
+        this.despertador = builder.getDespertador();
+        this.tv = builder.getTv();
+        this.internet = builder.getInternet();
+        this.minibar = builder.getMiniBar();
+        this.cantidadDePersonas = builder.getCantidadPersonas();
     }
 
-    public boolean CumpleFiltro(Filtro f){
-        boolean fecha=true;
-        for(DetalleReserva d:detallesReserva){
-            if(!d.cumpleFecha(f.getCheckIn())){
-                fecha=false;
+    public boolean CumpleFiltro(Filtro f) {
+        boolean fecha = true;
+        for (DetalleReserva d : detallesReserva) {
+            if (!d.cumpleFecha(f.getCheckIn())) {
+                fecha = false;
             }
         }
-        return (f.tieneMinibar()==minibar && f.tieneTv()==tv && f.tieneInternet()==internet &&
-                f.tieneDespertador()==despertador && f.getTipoDeHabitacion()==tipoDeHabitacion && f.getCantidadDePersonas()==cantidadDePersonas
+        return (f.tieneMinibar() == minibar && f.tieneTv() == tv && f.tieneInternet() == internet &&
+                f.tieneDespertador() == despertador && f.getTipoDeHabitacion() == tipoDeHabitacion
+                && f.getCantidadDePersonas() == cantidadDePersonas
                 && fecha);
     }
-    public int getId(){
+
+    public int getId() {
         return id;
     }
-    public double getPrecioBase(){
-        ArrayList<ExtrasHabitacion> extras=new ArrayList<>();
-        if(despertador){
+
+    public double getPrecioBase() {
+        ArrayList<ExtrasHabitacion> extras = new ArrayList<>();
+        if (despertador) {
             extras.add(ExtrasHabitacion.Despertador);
-        }else if(tv){
+        } else if (tv) {
             extras.add(ExtrasHabitacion.Tv);
-        }else if(minibar){
+        } else if (minibar) {
             extras.add(ExtrasHabitacion.Minibar);
-        }else if(internet){
+        } else if (internet) {
             extras.add(ExtrasHabitacion.Internet);
-        } else if (TipoHabitacion.Suite==tipoDeHabitacion) {
+        } else if (TipoHabitacion.Suite == tipoDeHabitacion) {
             extras.add(ExtrasHabitacion.Suite);
-        }else extras.add(ExtrasHabitacion.Estandar);
-        return Extra.getInstancia().obtenerValores(extras,cantidadDePersonas);
+        } else
+            extras.add(ExtrasHabitacion.Estandar);
+        return Extra.getInstancia().obtenerValores(extras, cantidadDePersonas);
     }
-    public HabitacionView habitacionToView(){
+
+    public HabitacionView habitacionToView() {
         return new HabitacionView();
     }
 }

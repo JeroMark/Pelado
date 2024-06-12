@@ -1,11 +1,12 @@
 package Model;
 
-import Interfaz.StateReserva;
+import Model.Interfaz.StateReserva;
 
 public class StatePrecioDescuento implements StateReserva {
     private double porcentaje;
-    public StatePrecioDescuento(){
-        this.porcentaje=0.85;
+
+    public StatePrecioDescuento() {
+        this.porcentaje = 0.85;
     }
 
     public double calcularPrecioFinalReserva(double precioBase) {
@@ -14,10 +15,6 @@ public class StatePrecioDescuento implements StateReserva {
 
     @Override
     public void cambiarValor(double nuevoValor) {
-        this.porcentaje=nuevoValor;
+        this.porcentaje = nuevoValor;
     }
 }
-
-
-
-

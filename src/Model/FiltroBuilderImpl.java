@@ -1,7 +1,8 @@
 package Model;
 
-import Interfaz.HabitacionBuilder;
-import Enum.TipoHabitacion;
+import Model.Enum.TipoHabitacion;
+import Model.Interfaz.HabitacionBuilder;
+
 import java.util.Date;
 
 public class FiltroBuilderImpl implements HabitacionBuilder {
@@ -14,40 +15,42 @@ public class FiltroBuilderImpl implements HabitacionBuilder {
     private Date checkIn;
     private Date checkOut;
 
-    public FiltroBuilderImpl(int cantidadDePersonas, TipoHabitacion tipoHabitacion, Date checkIn, Date checkOut){
-        this.cantidadDePersonas=cantidadDePersonas;
-        this.tipoDeHabitacion=tipoHabitacion;
-        this.tv=false;
-        this.despertador=false;
-        this.minibar=false;
-        this.internet=false;
-        this.checkIn=checkIn;
-        this.checkOut=checkOut;
+    public FiltroBuilderImpl(int cantidadDePersonas, TipoHabitacion tipoHabitacion, Date checkIn, Date checkOut) {
+        this.cantidadDePersonas = cantidadDePersonas;
+        this.tipoDeHabitacion = tipoHabitacion;
+        this.tv = false;
+        this.despertador = false;
+        this.minibar = false;
+        this.internet = false;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
     }
 
     @Override
     public void conDespertador() {
-        this.despertador=true;
+        this.despertador = true;
     }
 
     @Override
     public void conTv() {
-        this.tv=true;
+        this.tv = true;
     }
 
     @Override
     public void conInternet() {
-        this.internet=true;
+        this.internet = true;
     }
 
     @Override
     public void conMiniBar() {
-        this.minibar=true;
+        this.minibar = true;
     }
+
     @Override
     public boolean getTv() {
         return tv;
     }
+
     @Override
     public boolean getInternet() {
         return internet;
@@ -80,7 +83,8 @@ public class FiltroBuilderImpl implements HabitacionBuilder {
     public Date getCheckOut() {
         return checkOut;
     }
-    public Filtro build(){
+
+    public Filtro build() {
         return new Filtro(this);
     }
 }

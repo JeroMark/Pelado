@@ -1,7 +1,8 @@
 package Model;
 
 import java.util.Date;
-import Enum.TipoTarjeta;
+
+import Model.Enum.TipoTarjeta;
 
 public class Tarjeta {
     private int numeroTarjeta;
@@ -10,7 +11,8 @@ public class Tarjeta {
     private String nombreTitular;
     private TipoTarjeta tipoTarjeta;
 
-    public Tarjeta(int numeroTarjeta, Date vencimiento, int codigoSeguridad, String nombreTitular, TipoTarjeta tipoTarjeta) {
+    public Tarjeta(int numeroTarjeta, Date vencimiento, int codigoSeguridad, String nombreTitular,
+            TipoTarjeta tipoTarjeta) {
         this.numeroTarjeta = numeroTarjeta;
         this.vencimiento = vencimiento;
         this.codigoSeguridad = codigoSeguridad;

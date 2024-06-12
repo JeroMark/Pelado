@@ -1,7 +1,8 @@
 package Model;
 
 import java.util.Date;
-import Enum.TipoHabitacion;
+
+import Model.Enum.TipoHabitacion;
 
 public class Filtro {
     private TipoHabitacion tipoDeHabitacion;
@@ -12,15 +13,16 @@ public class Filtro {
     private int cantidadDePersonas;
     private Date checkIn;
     private Date checkOut;
-    public Filtro(FiltroBuilderImpl filtroBuilder){
-      this.tipoDeHabitacion=filtroBuilder.getTipoHabitacion();
-      this.despertador= filtroBuilder.getDespertador();
-      this.tv= filtroBuilder.getTv();
-      this.internet= filtroBuilder.getInternet();
-      this.minibar= filtroBuilder.getMiniBar();
-      this.cantidadDePersonas= filtroBuilder.getCantidadPersonas();
-      this.checkIn=filtroBuilder.getCheckIn();
-      this.checkOut=filtroBuilder.getCheckOut();
+
+    public Filtro(FiltroBuilderImpl filtroBuilder) {
+        this.tipoDeHabitacion = filtroBuilder.getTipoHabitacion();
+        this.despertador = filtroBuilder.getDespertador();
+        this.tv = filtroBuilder.getTv();
+        this.internet = filtroBuilder.getInternet();
+        this.minibar = filtroBuilder.getMiniBar();
+        this.cantidadDePersonas = filtroBuilder.getCantidadPersonas();
+        this.checkIn = filtroBuilder.getCheckIn();
+        this.checkOut = filtroBuilder.getCheckOut();
     }
 
     public TipoHabitacion getTipoDeHabitacion() {
