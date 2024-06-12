@@ -6,20 +6,20 @@ import Model.Interfaz.ServicioMensajeria;
 
 public class AreaMarketing implements Observer {
     private String mail;
-    private static AreaMarketing intancia;
+    private static AreaMarketing instancia;
 
     private AreaMarketing() {
     }
 
-    public static AreaMarketing getIntancia() {
-        if (intancia == null) {
-            intancia = new AreaMarketing();
+    public static AreaMarketing getInstancia() {
+        if (instancia == null) {
+            instancia = new AreaMarketing();
         }
-        return intancia;
+        return instancia;
     }
 
     public String getMail() {
-        return mail;
+        return this.mail;
     }
 
     public void setMail(String mail) {

@@ -2,10 +2,10 @@ package Controller;
 
 import Model.*;
 import Model.Enum.*;
-import Model.Exeption.BusquedaExeption;
-import Model.Exeption.LogginExeption;
-import Model.Exeption.ReservaExeption;
-import Model.Exeption.SinPermisoExeption;
+import Model.Exception.BusquedaException;
+import Model.Exception.LogginException;
+import Model.Exception.ReservaException;
+import Model.Exception.SinPermisoException;
 import View.HabitacionView;
 
 import java.util.ArrayList;
@@ -47,29 +47,29 @@ public class Controlador {
         clientes.add(user);
     }
 
-    public void iniciarSesion(int dni, String contrasenia) throws LogginExeption {
+    public void iniciarSesion(int dni, String contrasenia) throws LogginException {
         Usuario u = buscarUsurio(dni);
         if (u == null) {
-            throw new LogginExeption("El usuario no existe");
+            throw new LogginException("El usuario no existe");
         }
         if (u != null) {
             if (u.getContrasenia() != contrasenia) {
-                throw new LogginExeption("La contraseñia es incorrecta");
+                throw new LogginException("La contraseñia es incorrecta");
             } else
                 user = u;
         }
     }
 
-    public void crearHabitacion(HabitacionBuilderImpl hab) throws SinPermisoExeption {
+    public void crearHabitacion(HabitacionBuilderImpl hab) throws SinPermisoException {
         if (user instanceof Cliente) {
-            throw new SinPermisoExeption("No tiene permiso para crear una habitacion");
+            throw new SinPermisoException("No tiene permiso para crear una habitacion");
         } else {
             Habitacion habitacion = hab.build();
             habitaciones.add(habitacion);
         }
     }
 
-    public ArrayList<HabitacionView> buscarHabitacion(Filtro filtro) throws BusquedaExeption {
+    public ArrayList<HabitacionView> buscarHabitacion(Filtro filtro) throws BusquedaException {
         ArrayList<HabitacionView> habitacionesCumplen = new ArrayList<>();
         for (Habitacion h : habitaciones) {
             if (h.CumpleFiltro(filtro)) {
@@ -77,7 +77,7 @@ public class Controlador {
             }
         }
         if (habitacionesCumplen.isEmpty()) {
-            throw new BusquedaExeption("No existe una habitacion para esos filtros");
+            throw new BusquedaException("No existe una habitacion para esos filtros");
         }
         return habitacionesCumplen;
     }
@@ -91,12 +91,12 @@ public class Controlador {
         reservas.add(new Reserva(medioDePago, habi, checkIn, checkOut, buscarCliente(idCliente)));
     }
 
-    public void cancelarReserva(int idReserva) throws ReservaExeption {
+    public void cancelarReserva(int idReserva) throws ReservaException {
         Reserva r = buscarReserva(idReserva);
         if (r == null) {
-            throw new ReservaExeption("La reserva no existe");
+            throw new ReservaException("La reserva no existe");
         } else
-            r.cancerlarReserva();
+            r.cancelarReserva();
     }
 
     public void actualizarValores(ExtrasHabitacion extrasHabitacion, double nuevoValor) {

@@ -11,7 +11,7 @@ public class AreaContable implements Observer {
     private AreaContable() {
     }
 
-    public static AreaContable getInstance() {
+    public static AreaContable getInstancia() {
         if (instancia == null) {
             instancia = new AreaContable();
         }

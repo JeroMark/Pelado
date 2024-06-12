@@ -25,7 +25,7 @@ public class Reserva {
     private ArrayList<DetalleReserva> detalleReservas;
     private Cliente cliente;
 
-    public Reserva(MedioDePago medioDePago, ArrayList<Habitacion> habitacions, Date checkIn, Date chekOut,
+    public Reserva(MedioDePago medioDePago, ArrayList<Habitacion> habitacions, Date checkIn, Date checkOut,
             Cliente cliente) {
         id++;
         this.idReserva = id;
@@ -33,10 +33,10 @@ public class Reserva {
         this.estadoReserva = EstadoReserva.Pendiente;
         this.cliente = cliente;
         this.medioPago = medioDePago;
-        crearDetallesReserva(habitacions, checkIn, chekOut);
+        crearDetallesReserva(habitacions, checkIn, checkOut);
         observers.add(cliente);
-        observers.add(AreaMarketing.getIntancia());
-        observers.add(AreaContable.getInstance());
+        observers.add(AreaMarketing.getInstancia());
+        observers.add(AreaContable.getInstancia());
         setStateReserva(checkIn);
         cliente.notificarObserver(idReserva, estadoReserva);
     }
@@ -74,7 +74,7 @@ public class Reserva {
 
     }
 
-    public void cancerlarReserva() {
+    public void cancelarReserva() {
         setEstadoReserva(EstadoReserva.Cancelada);
         cliente.notificarObserver(idReserva, estadoReserva);
     }
@@ -85,7 +85,7 @@ public class Reserva {
 
     public void dias() {
         if (diferenciaHoras(getFechaActual()) > 24) {
-            cancerlarReserva();
+            cancelarReserva();
         }
     }
 
@@ -116,9 +116,9 @@ public class Reserva {
         return date;
     }
 
-    private void crearDetallesReserva(ArrayList<Habitacion> habitacions, Date chekIn, Date chekOut) {
+    private void crearDetallesReserva(ArrayList<Habitacion> habitacions, Date checkIn, Date checkOut) {
         for (Habitacion h : habitacions) {
-            detalleReservas.add(new DetalleReserva(h, idReserva, chekIn, chekOut));
+            detalleReservas.add(new DetalleReserva(h, idReserva, checkIn, checkOut));
         }
     }
 
