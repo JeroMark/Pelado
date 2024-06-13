@@ -3,6 +3,7 @@ package Model;
 import java.util.Date;
 
 import Model.Enum.TipoHabitacion;
+import Model.Interfaz.HabitacionBuilder;
 
 public class Filtro {
     private TipoHabitacion tipoDeHabitacion;
@@ -14,15 +15,15 @@ public class Filtro {
     private Date checkIn;
     private Date checkOut;
 
-    public Filtro(FiltroBuilderImpl filtroBuilder) {
-        this.tipoDeHabitacion = filtroBuilder.getTipoHabitacion();
-        this.despertador = filtroBuilder.getDespertador();
-        this.tv = filtroBuilder.getTv();
-        this.internet = filtroBuilder.getInternet();
-        this.minibar = filtroBuilder.getMiniBar();
-        this.cantidadDePersonas = filtroBuilder.getCantidadPersonas();
-        this.checkIn = filtroBuilder.getCheckIn();
-        this.checkOut = filtroBuilder.getCheckOut();
+    public Filtro() {
+        this.tipoDeHabitacion = null;
+        this.despertador = false;
+        this.tv = false;
+        this.internet = false;
+        this.minibar = false;
+        this.cantidadDePersonas = 0;
+        this.checkIn = null;
+        this.checkOut = null;
     }
 
     public TipoHabitacion getTipoDeHabitacion() {
@@ -55,5 +56,37 @@ public class Filtro {
 
     public Date getCheckOut() {
         return checkOut;
+    }
+
+    public void setDespertador() {
+        this.despertador = true;
+    }
+
+    public void setTipoDeHabitacion(TipoHabitacion tipoDeHabitacion) {
+        this.tipoDeHabitacion = tipoDeHabitacion;
+    }
+
+    public void setTv() {
+        this.tv = true;
+    }
+
+    public void setInternet() {
+        this.internet = true;
+    }
+
+    public void setMinibar() {
+        this.minibar = true;
+    }
+
+    public void setCantidadDePersonas(int cantidadDePersonas) {
+        this.cantidadDePersonas = cantidadDePersonas;
+    }
+
+    public void setCheckIn(Date checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public void setCheckOut(Date checkOut) {
+        this.checkOut = checkOut;
     }
 }

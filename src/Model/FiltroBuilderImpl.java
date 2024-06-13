@@ -6,85 +6,47 @@ import Model.Interfaz.HabitacionBuilder;
 import java.util.Date;
 
 public class FiltroBuilderImpl implements HabitacionBuilder {
-    private TipoHabitacion tipoDeHabitacion;
-    private boolean despertador;
-    private boolean tv;
-    private boolean internet;
-    private boolean minibar;
-    private int cantidadDePersonas;
-    private Date checkIn;
-    private Date checkOut;
+    private Filtro filtro;
 
-    public FiltroBuilderImpl(int cantidadDePersonas, TipoHabitacion tipoHabitacion, Date checkIn, Date checkOut) {
-        this.cantidadDePersonas = cantidadDePersonas;
-        this.tipoDeHabitacion = tipoHabitacion;
-        this.tv = false;
-        this.despertador = false;
-        this.minibar = false;
-        this.internet = false;
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
+    public FiltroBuilderImpl() {
+        reset();
+    }
+    private void reset(){
+        this.filtro=new Filtro();
     }
 
     @Override
     public void conDespertador() {
-        this.despertador = true;
+        filtro.setDespertador();
+    }
+
+    @Override
+    public void cantidadDePersonas(int cantPersonas) {
+        filtro.setCantidadDePersonas(cantPersonas);
+    }
+
+    @Override
+    public void tipoDeHabitacion(TipoHabitacion tipo) {
+        filtro.setTipoDeHabitacion(tipo);
     }
 
     @Override
     public void conTv() {
-        this.tv = true;
+        filtro.setTv();
     }
 
     @Override
     public void conInternet() {
-        this.internet = true;
+        filtro.setInternet();
     }
 
     @Override
     public void conMiniBar() {
-        this.minibar = true;
+        filtro.setMinibar();
     }
-
-    @Override
-    public boolean getTv() {
-        return tv;
-    }
-
-    @Override
-    public boolean getInternet() {
-        return internet;
-    }
-
-    @Override
-    public boolean getMiniBar() {
-        return minibar;
-    }
-
-    @Override
-    public boolean getDespertador() {
-        return despertador;
-    }
-
-    @Override
-    public TipoHabitacion getTipoHabitacion() {
-        return tipoDeHabitacion;
-    }
-
-    @Override
-    public int getCantidadPersonas() {
-        return cantidadDePersonas;
-    }
-
-    public Date getCheckIn() {
-        return checkIn;
-    }
-
-    public Date getCheckOut() {
-        return checkOut;
-    }
-
-    public Filtro build() {
-        return new Filtro(this);
+    public Filtro build(){
+        Filtro devolver=this.filtro;
+        reset();
+        return devolver;
     }
 }

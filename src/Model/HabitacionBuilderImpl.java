@@ -4,35 +4,37 @@ import Model.Enum.TipoHabitacion;
 import Model.Interfaz.HabitacionBuilder;
 
 public class HabitacionBuilderImpl implements HabitacionBuilder {
-    private boolean despertador;
-    private boolean tv;
-    private boolean internet;
-    private boolean minibar;
-    private int cantidadDePersonas;
-    private TipoHabitacion tipoHabitacion;
+    private Habitacion habitacion;
 
-    public HabitacionBuilderImpl(int cantidadDePersonas, TipoHabitacion tipoHabitacion) {
-        this.tipoHabitacion = tipoHabitacion;
-        this.cantidadDePersonas = cantidadDePersonas;
-        this.tv = false;
-        this.despertador = false;
-        this.minibar = false;
-        this.internet = false;
+    public HabitacionBuilderImpl() {
+        reset();
+    }
+    public void reset(){
+        this.habitacion=new Habitacion();
+    }
+    @Override
+    public void conDespertador() {
+        habitacion.setDespertador();
     }
 
     @Override
-    public void conDespertador() {
-        this.despertador = true;
+    public void cantidadDePersonas(int cantPersonas) {
+        habitacion.setCantidadDePersonas(cantPersonas);
+    }
+
+    @Override
+    public void tipoDeHabitacion(TipoHabitacion tipo) {
+        habitacion.setTipoDeHabitacion(tipo);
     }
 
     @Override
     public void conTv() {
-        this.tv = true;
+        habitacion.setTv();
     }
 
     @Override
     public void conInternet() {
-        this.internet = true;
+       habitacion.setInternet();
     }
 
     @Override
@@ -71,6 +73,8 @@ public class HabitacionBuilderImpl implements HabitacionBuilder {
     }
 
     public Habitacion build() {
-        return new Habitacion(this);
+        Habitacion devolver=this.habitacion;
+        reset();
+        return devolver;
     }
 }

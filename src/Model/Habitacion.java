@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import Model.Enum.ExtrasHabitacion;
 import Model.Enum.TipoHabitacion;
@@ -17,21 +18,21 @@ public class Habitacion {
     private int cantidadDePersonas;
     private ArrayList<DetalleReserva> detallesReserva;
 
-    public Habitacion(HabitacionBuilderImpl builder) {
+    public Habitacion() {
         id++;
         this.idHabitacion = id;
-        this.tipoDeHabitacion = builder.getTipoHabitacion();
-        this.despertador = builder.getDespertador();
-        this.tv = builder.getTv();
-        this.internet = builder.getInternet();
-        this.minibar = builder.getMiniBar();
-        this.cantidadDePersonas = builder.getCantidadPersonas();
+        this.tipoDeHabitacion = null;
+        this.despertador = false;
+        this.tv = false;
+        this.internet = false;
+        this.minibar = false;
+        this.cantidadDePersonas = 0;
+        detallesReserva=new ArrayList<>();
     }
-
     public boolean CumpleFiltro(Filtro f) {
         boolean fecha = true;
         for (DetalleReserva d : detallesReserva) {
-            if (!d.cumpleFecha(f.getCheckIn())) {
+            if (!d.libreEnRango(f.getCheckIn(),f.getCheckOut())) {
                 fecha = false;
             }
         }
@@ -40,11 +41,16 @@ public class Habitacion {
                 && f.getCantidadDePersonas() == cantidadDePersonas
                 && fecha);
     }
-
+    public boolean reporte(Date fechaInicio, Date fechaFin){
+        for(DetalleReserva d:detallesReserva) {
+            if(!d.libreEnRango(fechaInicio,fechaFin)){
+                return false;
+            }
+        }return true;
+    }
     public int getId() {
         return id;
     }
-
     public double getPrecioBase() {
         ArrayList<ExtrasHabitacion> extras = new ArrayList<>();
         if (despertador) {
@@ -61,8 +67,35 @@ public class Habitacion {
             extras.add(ExtrasHabitacion.Estandar);
         return Extra.getInstancia().obtenerValores(extras, cantidadDePersonas);
     }
-
     public HabitacionView habitacionToView() {
-        return new HabitacionView();
+        return new HabitacionView(this.id,this.tipoDeHabitacion,this.despertador,this.tv,this.internet,this.minibar,this.cantidadDePersonas);
+    }
+
+    public void setTipoDeHabitacion(TipoHabitacion tipoDeHabitacion) {
+        this.tipoDeHabitacion = tipoDeHabitacion;
+    }
+
+    public void setDespertador() {
+        this.despertador = true;
+    }
+
+    public void setTv() {
+        this.tv = true;
+    }
+
+    public void setInternet() {
+        this.internet = true;
+    }
+
+    public void setMinibar() {
+        this.minibar = true;
+    }
+
+    public void setDetallesReserva(DetalleReserva detallesReserva) {
+        this.detallesReserva.add(detallesReserva);
+    }
+
+    public void setCantidadDePersonas(int cantidadDePersonas) {
+        this.cantidadDePersonas = cantidadDePersonas;
     }
 }

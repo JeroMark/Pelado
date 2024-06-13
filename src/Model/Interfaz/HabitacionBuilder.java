@@ -5,21 +5,14 @@ import Model.Enum.TipoHabitacion;
 public interface HabitacionBuilder {
     void conDespertador();
 
+    void cantidadDePersonas(int cantPersonas);
+
+    void tipoDeHabitacion(TipoHabitacion tipo);
+
     void conTv();
 
     void conInternet();
 
     void conMiniBar();
 
-    boolean getTv();
-
-    boolean getInternet();
-
-    boolean getMiniBar();
-
-    boolean getDespertador();
-
-    TipoHabitacion getTipoHabitacion();
-
-    int getCantidadPersonas();
 }

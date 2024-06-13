@@ -10,20 +10,20 @@ import java.util.Date;
 import Model.Enum.EstadoReserva;
 import Model.Enum.MedioDePago;
 import Model.Enum.TipoContacto;
-import Model.Interfaz.Observer;
+import Model.Interfaz.ObserverReserva;
 import Model.Interfaz.ServicioMensajeria;
 import Model.Interfaz.StateReserva;
 
 public class Reserva {
     private static int id;
-    private int idReserva;
+    private final int idReserva;
     private MedioDePago medioPago;
     private EstadoReserva estadoReserva;
     private StateReserva stateReserva;
-    private Date fechaCreacionReserva;
-    private ArrayList<Observer> observers;
+    private final Date fechaCreacionReserva;
     private ArrayList<DetalleReserva> detalleReservas;
-    private Cliente cliente;
+    private final Cliente cliente;
+    private final ReservaObserverAdmin adminObserver;
 
     public Reserva(MedioDePago medioDePago, ArrayList<Habitacion> habitacions, Date checkIn, Date checkOut,
             Cliente cliente) {
@@ -33,18 +33,24 @@ public class Reserva {
         this.estadoReserva = EstadoReserva.Pendiente;
         this.cliente = cliente;
         this.medioPago = medioDePago;
+        this.adminObserver =new ReservaObserverAdmin();
         crearDetallesReserva(habitacions, checkIn, checkOut);
-        observers.add(cliente);
-        observers.add(AreaMarketing.getInstancia());
-        observers.add(AreaContable.getInstancia());
         setStateReserva(checkIn);
         cliente.notificarObserver(idReserva, estadoReserva);
     }
-
-    public void agregarObserver(Observer o) {
-        observers.add(o);
+    public void agregarObserver(ObserverReserva o) {
+       adminObserver.agregarObserver(o);
     }
-
+    public void eliminarObserver(ObserverReserva o){
+        adminObserver.eliminarObserver(o);
+    }
+    public Date getFechaCreacionReserva() {
+        return fechaCreacionReserva;
+    }
+    public EstadoReserva getEstadoReserva(){return estadoReserva;}
+    public int getId() {
+        return idReserva;
+    }
     public double calcularPrecioFinal() {
         double precio = 0;
         for (DetalleReserva d : detalleReservas) {
@@ -52,38 +58,17 @@ public class Reserva {
         }
         return (stateReserva.calcularPrecioFinalReserva(precio));
     }
-
-    private void setEstadoReserva(EstadoReserva estadoReserva) {
-        this.estadoReserva = estadoReserva;
-    }
-
-    public EstadoReserva getEstadoReserva() {
-        return estadoReserva;
-    }
-
-    public Date getFechaCreacionReserva() {
-        return fechaCreacionReserva;
-    }
-
-    public Factura pagada() {
+    public void pagada() {
         setEstadoReserva(EstadoReserva.Pagada);
-        notificarCambioDeEstado();
+        adminObserver.informarObservers(this.idReserva,this.estadoReserva);
         Factura f = new Factura(cliente, medioPago, calcularPrecioFinal(), this.idReserva);
-        enviarFactura(f);
-        return f;
-
+        f.enviarFacturaCliente();
     }
-
     public void cancelarReserva() {
         setEstadoReserva(EstadoReserva.Cancelada);
         cliente.notificarObserver(idReserva, estadoReserva);
     }
-
-    public int getId() {
-        return idReserva;
-    }
-
-    public void dias() {
+    public void verificarVencimiento() {
         if (diferenciaHoras(getFechaActual()) > 24) {
             cancelarReserva();
         }
@@ -91,37 +76,22 @@ public class Reserva {
 
     //////////// METODOS
     //////////// PRIVADOS////////////////////////////////////////////////////////////////////////////////////////
-    private void enviarFactura(Factura f) {
-        if (cliente.getTipoContacto() == TipoContacto.Mail) {
-            ServicioMensajeria notificador = new MensajeMail();
-            notificador.enviarFactura(f, cliente.getMail());
-        } else if (cliente.getTipoContacto() == TipoContacto.WhatsApp) {
-            ServicioMensajeria notificador = new MensajeWPP();
-            notificador.enviarFactura(f, cliente.getTelefono());
-        } else {
-            ServicioMensajeria notifiacor = new MensajeSms();
-            notifiacor.enviarFactura(f, cliente.getTelefono());
-        }
-    }
 
-    private void notificarCambioDeEstado() {
-        for (Observer o : observers) {
-            o.notificarObserver(idReserva, estadoReserva);
-        }
+    private void setEstadoReserva(EstadoReserva estadoReserva) {
+        this.estadoReserva = estadoReserva;
     }
-
     private Date getFechaActual() {
         LocalDateTime localDateTime = LocalDateTime.now();
         Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         return date;
     }
-
     private void crearDetallesReserva(ArrayList<Habitacion> habitacions, Date checkIn, Date checkOut) {
         for (Habitacion h : habitacions) {
-            detalleReservas.add(new DetalleReserva(h, idReserva, checkIn, checkOut));
+            DetalleReserva detalle= new DetalleReserva(h, idReserva, checkIn, checkOut);
+            detalleReservas.add(detalle);
+            h.setDetallesReserva(detalle);
         }
     }
-
     private void setStateReserva(Date checkIn) {
         int diferencia = DiferenciaDias(checkIn);
         if (diferencia < 15) {
@@ -132,13 +102,11 @@ public class Reserva {
             stateReserva = new StatePrecioBase();
         }
     }
-
     private int DiferenciaDias(Date FechaCheckin) {
         LocalDate inicio = this.fechaCreacionReserva.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate fin = FechaCheckin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return (int) ChronoUnit.DAYS.between(inicio, fin);
     }
-
     private long diferenciaHoras(Date fin) {
         long diferenciaEnMilisegundos = Math.abs(fin.getTime() - fechaCreacionReserva.getTime());
         long diferenciaEnHoras = diferenciaEnMilisegundos / (60 * 60 * 1000);

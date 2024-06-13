@@ -15,9 +15,9 @@ public class DetalleReserva {
         this.idReserva=idReserva;
     }
 
-    public boolean cumpleFecha(Date fecha) {
-        return isDateBetween(fecha, checkIn, checkOut);
-
+    public boolean libreEnRango(Date fechaInicio, Date fechaFin) {
+        //Si el rango de fecha querido se superpone con una reserva devuelve false
+        return (fechaInicio.after(checkOut)||fechaFin.before(checkIn));  //coca
     }
     public double getPrecioHabitacion(){
         return habitacion.getPrecioBase();

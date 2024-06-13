@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import Model.Enum.EstadoReserva;
 import Model.Enum.TipoContacto;
-import Model.Interfaz.Observer;
+import Model.Interfaz.ObserverReserva;
 import Model.Interfaz.ServicioMensajeria;
 
-public class Cliente extends Usuario implements Observer {
+public class Cliente extends Usuario implements ObserverReserva {
     private ArrayList<Tarjeta> tarjetas;
 
     public Cliente(int dni, String nombre, String apellido, String telefono, String mail, TipoContacto tipoContacto,

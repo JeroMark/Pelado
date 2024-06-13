@@ -2,6 +2,6 @@ package Model.Interfaz;
 
 import Model.Enum.EstadoReserva;
 
-public interface Observer {
+public interface ObserverReserva {
     void notificarObserver(int idReserva, EstadoReserva estadoReserva);
 }

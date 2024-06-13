@@ -1,19 +1,20 @@
-package Model;
+package Model.Externos;
 
 import Model.Enum.EstadoReserva;
-import Model.Interfaz.Observer;
+import Model.Interfaz.ObserverReserva;
 import Model.Interfaz.ServicioMensajeria;
+import Model.MensajeMail;
 
-public class AreaContable implements Observer {
+public class AreaMarketing implements ObserverReserva {
     private String mail;
-    private static AreaContable instancia;
+    private static AreaMarketing instancia;
 
-    private AreaContable() {
+    private AreaMarketing() {
     }
 
-    public static AreaContable getInstancia() {
+    public static AreaMarketing getInstancia() {
         if (instancia == null) {
-            instancia = new AreaContable();
+            instancia = new AreaMarketing();
         }
         return instancia;
     }
@@ -22,7 +23,7 @@ public class AreaContable implements Observer {
         return this.mail;
     }
 
-    public void SetMail(String mail) {
+    public void setMail(String mail) {
         this.mail = mail;
     }
 

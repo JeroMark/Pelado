@@ -1,4 +1,4 @@
-package Model;
+package Model.Externos;
 
 public class ApiMercadoPago {
     private boolean pago=true;
