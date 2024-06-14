@@ -20,15 +20,15 @@ public class HabitacionView {
         this.cantidadDePersonas = cantidadDePersonas;
     }
 
+
     @Override
     public String toString() {
-        return "Habitacion: " +
+
+        return "Habitacion " +
                 "idHabitacion: " + idHabitacion +
                 ", tipoDeHabitacion: " + tipoDeHabitacion +
-                ", despertador: " + despertador +
-                ", tv: " + tv +
-                ", internet: " + internet +
-                ", minibar: " + minibar +
-                ", cantidadDePersonas: " + cantidadDePersonas;
+                ", cantidadDePersonas: " + cantidadDePersonas + (tv ? " cuenta con tv":"")+(internet ? "Cuenta con internet":"")+
+                (despertador ? " cuenta con despertador":"")+(minibar ? "cuenta con minibar":"");
+
     }
 }

@@ -30,15 +30,15 @@ public class Habitacion {
         detallesReserva=new ArrayList<>();
     }
     public boolean CumpleFiltro(Filtro f) {
-        boolean fecha = true;
+        boolean fecha = false;
         for (DetalleReserva d : detallesReserva) {
-            if (!d.libreEnRango(f.getCheckIn(),f.getCheckOut())) {
-                fecha = false;
+            if (d.libreEnRango(f.getCheckIn(),f.getCheckOut())) { //NO ANDA
+                fecha = true;
             }
         }
         return (f.tieneMinibar() == minibar && f.tieneTv() == tv && f.tieneInternet() == internet &&
                 f.tieneDespertador() == despertador && f.getTipoDeHabitacion() == tipoDeHabitacion
-                && f.getCantidadDePersonas() == cantidadDePersonas
+                && f.getCantidadDePersonas() <= cantidadDePersonas
                 && fecha);
     }
     public boolean reporte(Date fechaInicio, Date fechaFin){
@@ -49,7 +49,7 @@ public class Habitacion {
         }return true;
     }
     public int getId() {
-        return id;
+        return idHabitacion;
     }
     public double getPrecioBase() {
         ArrayList<ExtrasHabitacion> extras = new ArrayList<>();
@@ -68,7 +68,7 @@ public class Habitacion {
         return Extra.getInstancia().obtenerValores(extras, cantidadDePersonas);
     }
     public HabitacionView habitacionToView() {
-        return new HabitacionView(this.id,this.tipoDeHabitacion,this.despertador,this.tv,this.internet,this.minibar,this.cantidadDePersonas);
+        return new HabitacionView(this.idHabitacion,this.tipoDeHabitacion,this.despertador,this.tv,this.internet,this.minibar,this.cantidadDePersonas);
     }
 
     public void setTipoDeHabitacion(TipoHabitacion tipoDeHabitacion) {
