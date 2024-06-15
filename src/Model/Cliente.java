@@ -27,13 +27,13 @@ public class Cliente extends Usuario implements ObserverReserva {
     public void notificarObserver(int idReserva, EstadoReserva estadoReserva) {
         if (tipoContacto == TipoContacto.Mail) {
             ServicioMensajeria notificador = new MensajeMail();
-            notificador.notificarCambioDeEstado(estadoReserva, idReserva, mail);
+            notificador.notificarCambioDeEstado("Cliente",estadoReserva, idReserva, mail);
         } else if (tipoContacto == TipoContacto.WhatsApp) {
             ServicioMensajeria notificador = new MensajeWPP();
-            notificador.notificarCambioDeEstado(estadoReserva, idReserva, telefono);
+            notificador.notificarCambioDeEstado("Cliente",estadoReserva, idReserva, telefono);
         } else {
             ServicioMensajeria notificador = new MensajeSms();
-            notificador.notificarCambioDeEstado(estadoReserva, idReserva, telefono);
+            notificador.notificarCambioDeEstado("Cliente",estadoReserva, idReserva, telefono);
         }
     }
 }

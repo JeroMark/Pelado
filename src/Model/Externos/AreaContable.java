@@ -30,6 +30,6 @@ public class AreaContable implements ObserverReserva {
     @Override
     public void notificarObserver(int idReserva, EstadoReserva estadoReserva) {
         ServicioMensajeria notificador = new MensajeMail();
-        notificador.notificarCambioDeEstado(estadoReserva, idReserva, mail);
+        notificador.notificarCambioDeEstado("Area contable",estadoReserva, idReserva, mail);
     }
 }

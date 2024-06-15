@@ -89,8 +89,9 @@ public class Controlador {
         Reserva r = buscarReserva(idReserva);
         if (r == null) {
             throw new ReservaException("La reserva no existe");
-        } else
-            r.cancelarReserva();
+        } else if(r.getEstadoReserva()==EstadoReserva.Pendiente){
+                r.cancelarReserva();
+        }else throw new ReservaException("La reserva no puede ser cancelada");
     }
     public void actualizarValores(ExtrasHabitacion extrasHabitacion, double nuevoValor) {
         Extra.getInstancia().actualizaValor(extrasHabitacion, nuevoValor);
@@ -114,6 +115,19 @@ public class Controlador {
             }
         }
        imprimirDiccio(repo);
+    }
+    public void mostrarReservas(){
+        for(Reserva r:reservas){
+            System.out.println(r.toView().toString());
+        }
+    }
+    public void PagarReserva(int id){
+       Reserva r= buscarReserva(id);
+       r.pagada();
+    }
+    public void mostrarCliente(int id){
+        Cliente c=buscarCliente(id);
+        System.out.println(c.clienteToView().toString());
     }
     private void imprimirDiccio(HashMap diccio){
         diccio.forEach((clave, valor) -> System.out.println("idHabitacion: " + clave + ", estado: " + valor));
@@ -202,34 +216,34 @@ public class Controlador {
         ArrayList<Integer> habi=new ArrayList();
         habi.add(1);
         habi.add(2);
-        Date inicio = new Date(2024, 6, 14);
-        Date fin = new Date(2024, 6, 24);
+        Date inicio = new Date(124, 6, 14);
+        Date fin = new Date(124, 6, 24);
         crearReserva(habi,inicio,fin,55667788,MedioDePago.Efectivo);
         //2reserva
         habi.clear();
         habi.add(6);
         habi.add(9);
-        Date inicio2 = new Date(2024, 10, 20);
-        Date fin2 = new Date(2024, 11, 02);
+        Date inicio2 = new Date(124, 10, 20);
+        Date fin2 = new Date(124, 11, 02);
         crearReserva(habi,inicio2,fin2,12345678,MedioDePago.TarjetaCredito);
         //3reserva
         habi.clear();
         habi.add(10);
         habi.add(9);
-        Date inicio3 = new Date(2024, 11, 03);
-        Date fin3 = new Date(2024, 11, 20);
+        Date inicio3 = new Date(124, 11, 03);
+        Date fin3 = new Date(124, 11, 20);
         crearReserva(habi,inicio3,fin3,87654321,MedioDePago.Transferencia);
         //4reserva
         habi.clear();
         habi.add(5);
-        Date inicio4 = new Date(2022, 9, 30);
-        Date fin4 = new Date(2022, 10, 11);
+        Date inicio4 = new Date(122, 9, 30);
+        Date fin4 = new Date(122, 10, 11);
         crearReserva(habi,inicio4,fin4,87654321,MedioDePago.TarjetaDebito);
         //5reserva
         habi.clear();
         habi.add(11);
-        Date inicio5 = new Date(2023, 9, 30);
-        Date fin5 = new Date(2023, 10, 11);
+        Date inicio5 = new Date(123, 9, 30);
+        Date fin5 = new Date(123, 10, 11);
         crearReserva(habi,inicio5,fin5,55667788,MedioDePago.TarjetaDebito);
     }
 }

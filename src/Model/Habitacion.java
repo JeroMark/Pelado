@@ -55,13 +55,13 @@ public class Habitacion {
         ArrayList<ExtrasHabitacion> extras = new ArrayList<>();
         if (despertador) {
             extras.add(ExtrasHabitacion.Despertador);
-        } else if (tv) {
+        }if (tv) {
             extras.add(ExtrasHabitacion.Tv);
-        } else if (minibar) {
+        }if (minibar) {
             extras.add(ExtrasHabitacion.Minibar);
-        } else if (internet) {
+        }if (internet) {
             extras.add(ExtrasHabitacion.Internet);
-        } else if (TipoHabitacion.Suite == tipoDeHabitacion) {
+        }if (TipoHabitacion.Suite == tipoDeHabitacion) {
             extras.add(ExtrasHabitacion.Suite);
         } else
             extras.add(ExtrasHabitacion.Estandar);

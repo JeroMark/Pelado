@@ -11,12 +11,15 @@ public class MensajeWPP implements ServicioMensajeria {
         System.out.println("**ENVIANDO POR WHATSAPP**");
         System.out.println("Factura");
         System.out.println(f.toString());
+        System.out.println("------------------------------------------------------------------------------------");
     }
 
     @Override
-    public void notificarCambioDeEstado(EstadoReserva estadoReserva, int idReserva, String contacto) {
+    public void notificarCambioDeEstado(String aquien,EstadoReserva estadoReserva, int idReserva, String contacto) {
         System.out.println("**ENVIANDO POR WHATSAPP**");
+        System.out.println("Enviando a: "+aquien);
         System.out.println("La reserva: " + idReserva + " cambio a: " + estadoReserva);
+        System.out.println("------------------------------------------------------------------------------------");
     }
 
     @Override

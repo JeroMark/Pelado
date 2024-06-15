@@ -13,6 +13,7 @@ import Model.Enum.TipoContacto;
 import Model.Interfaz.ObserverReserva;
 import Model.Interfaz.ServicioMensajeria;
 import Model.Interfaz.StateReserva;
+import View.ReservaView;
 
 public class Reserva {
     private static int id;
@@ -74,7 +75,9 @@ public class Reserva {
             cancelarReserva();
         }
     }
-
+    public ReservaView toView(){
+        return new ReservaView(this.idReserva,this.fechaCreacionReserva,this.cliente,this.estadoReserva,this.medioPago);
+    }
     //////////// METODOS
     //////////// PRIVADOS////////////////////////////////////////////////////////////////////////////////////////
 

@@ -30,6 +30,6 @@ public class AreaMarketing implements ObserverReserva {
     @Override
     public void notificarObserver(int idReserva, EstadoReserva estadoReserva) {
         ServicioMensajeria notificador = new MensajeMail();
-        notificador.notificarCambioDeEstado(estadoReserva, idReserva, mail);
+        notificador.notificarCambioDeEstado("Area de marketing",estadoReserva, idReserva, mail);
     }
 }
