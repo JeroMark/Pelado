@@ -30,10 +30,10 @@ public class Habitacion {
         detallesReserva=new ArrayList<>();
     }
     public boolean CumpleFiltro(Filtro f) {
-        boolean fecha = false;
+        boolean fecha = true;
         for (DetalleReserva d : detallesReserva) {
-            if (d.libreEnRango(f.getCheckIn(),f.getCheckOut())) { //NO ANDA
-                fecha = true;
+            if (!d.libreEnRango(f.getCheckIn(),f.getCheckOut())) {
+                fecha = false;
             }
         }
         return (f.tieneMinibar() == minibar && f.tieneTv() == tv && f.tieneInternet() == internet &&

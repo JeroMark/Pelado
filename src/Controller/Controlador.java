@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+
 public class Controlador {
     private static Controlador instancia;
     private final ArrayList<Gerente> gerentes;
@@ -101,7 +102,7 @@ public class Controlador {
             }
         }
     }
-    public HashMap generarReporte(Date inicio,Date fin){
+    public void generarReporte(Date inicio,Date fin){
         //Genera un diccionario con el estado de las habitaciones del hotel
         //si reporte devuelve true quiere decir que la habitacion esta libre en ese rango
         HashMap<Integer,String> repo=new HashMap<>();
@@ -112,7 +113,10 @@ public class Controlador {
                 repo.put(h.getId(),"Reservada");
             }
         }
-        return repo;
+       imprimirDiccio(repo);
+    }
+    private void imprimirDiccio(HashMap diccio){
+        diccio.forEach((clave, valor) -> System.out.println("idHabitacion: " + clave + ", estado: " + valor));
     }
     private Usuario buscarUsurio(int dni) {
         Usuario user = null;
@@ -160,26 +164,37 @@ public class Controlador {
         //se crea una instancia del habitacionBuilder y luego se le agregan las distintas habitaciones
         HabitacionBuilderImpl builder=new HabitacionBuilderImpl();
         //registra distintas habitaciones
+        //habitacion 1
         builder.conDespertador(); builder.conTv(); builder.cantidadDePersonas(4); builder.tipoDeHabitacion(TipoHabitacion.Estandar);
         habitaciones.add(builder.build());
+        //habitacion 2
         builder.conDespertador(); builder.conTv(); builder.cantidadDePersonas(2); builder.tipoDeHabitacion(TipoHabitacion.Estandar);
         habitaciones.add(builder.build());
-        builder.conMiniBar(); builder.conTv(); builder.cantidadDePersonas(4); builder.tipoDeHabitacion(TipoHabitacion.Suite); habitaciones.add(builder.build());
+        //habitacion 3
+        builder.conMiniBar(); builder.conTv(); builder.cantidadDePersonas(4); builder.tipoDeHabitacion(TipoHabitacion.Suite);
         habitaciones.add(builder.build());
+        //habitacion 4
         builder.conDespertador(); builder.conInternet(); builder.conMiniBar(); builder.cantidadDePersonas(1); builder.tipoDeHabitacion(TipoHabitacion.Estandar);
         habitaciones.add(builder.build());
+        //habitacion 5
         builder.conTv(); builder.conMiniBar(); builder.cantidadDePersonas(3); builder.tipoDeHabitacion(TipoHabitacion.Suite);
         habitaciones.add(builder.build());
+        //habitacion 6
         builder.conInternet(); builder.conMiniBar(); builder.cantidadDePersonas(2); builder.tipoDeHabitacion(TipoHabitacion.Estandar);
         habitaciones.add(builder.build());
-        builder.conDespertador(); builder.cantidadDePersonas(1); builder.tipoDeHabitacion(TipoHabitacion.Suite); habitaciones.add(builder.build());
+        //habitacion 7
+        builder.conDespertador(); builder.cantidadDePersonas(1); builder.tipoDeHabitacion(TipoHabitacion.Suite);
         habitaciones.add(builder.build());
+        //habitacion 8
         builder.conTv(); builder.conInternet(); builder.conMiniBar(); builder.cantidadDePersonas(4); builder.tipoDeHabitacion(TipoHabitacion.Estandar);
         habitaciones.add(builder.build());
+        //habitacion 9
         builder.conDespertador(); builder.conTv(); builder.cantidadDePersonas(2); builder.tipoDeHabitacion(TipoHabitacion.Suite);
         habitaciones.add(builder.build());
+        //habitacion 10
         builder.conInternet(); builder.cantidadDePersonas(3); builder.tipoDeHabitacion(TipoHabitacion.Estandar);
         habitaciones.add(builder.build());
+        //habitacion 11
         builder.conDespertador(); builder.conTv(); builder.conInternet(); builder.conMiniBar(); builder.cantidadDePersonas(2); builder.tipoDeHabitacion(TipoHabitacion.Suite);
         habitaciones.add(builder.build());
         //creacion de reservas

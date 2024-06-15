@@ -9,6 +9,7 @@ import View.HabitacionView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class main {
     public static void main (String[] args){
@@ -28,5 +29,8 @@ public class main {
         }catch (BusquedaException e){
             e.getMessage();
         }
+        Controlador.getInstancia().generarReporte(new Date (2023,10,11),new Date(2024,3,1));
+
+
     }
 }
