@@ -10,5 +10,5 @@ public interface ServicioMensajeria {
 
     void notificarCambioDeEstado(String aquien,EstadoReserva estadoReserva, int idReserva, String contacto);
 
-    void enviarPromocion(ArrayList<String> contacto);
+    void enviarPromocion(ArrayList<String> contacto,String mensaje);
 }

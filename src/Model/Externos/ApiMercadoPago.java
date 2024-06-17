@@ -11,4 +11,8 @@ public class ApiMercadoPago {
         }
         return instancia;
     }
+
+    public boolean isPago() {
+        return pago;
+    }
 }

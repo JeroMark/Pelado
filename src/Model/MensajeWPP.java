@@ -23,7 +23,7 @@ public class MensajeWPP implements ServicioMensajeria {
     }
 
     @Override
-    public void enviarPromocion(ArrayList<String> contacto) {
+    public void enviarPromocion(ArrayList<String> contacto,String mensaje) {
 
     }
 }

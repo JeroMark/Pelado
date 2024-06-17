@@ -10,6 +10,7 @@ import java.util.Date;
 import Model.Enum.EstadoReserva;
 import Model.Enum.MedioDePago;
 import Model.Enum.TipoContacto;
+import Model.Externos.ApiMercadoPago;
 import Model.Interfaz.ObserverReserva;
 import Model.Interfaz.ServicioMensajeria;
 import Model.Interfaz.StateReserva;
@@ -25,6 +26,7 @@ public class Reserva {
     private ArrayList<DetalleReserva> detalleReservas;
     private final Cliente cliente;
     private final ReservaObserverAdmin adminObserver;
+    private Factura factura;
 
     public Reserva(MedioDePago medioDePago, ArrayList<Habitacion> habitacions, Date checkIn, Date checkOut,
             Cliente cliente) {
@@ -62,10 +64,18 @@ public class Reserva {
         return (stateReserva.calcularPrecioFinalReserva(precio));
     }
     public void pagada() {
+        if(this.medioPago==MedioDePago.Transferencia){
+            if (ApiMercadoPago.getInstancia().isPago()){
+                pagarse();
+            }else System.out.println("Pago rechazado");
+        }else pagarse();
+    }
+    private void pagarse(){
         setEstadoReserva(EstadoReserva.Pagada);
         adminObserver.informarObservers(this.idReserva,this.estadoReserva);
         Factura f = new Factura(cliente, medioPago, calcularPrecioFinal(), this.idReserva);
         f.enviarFacturaCliente();
+        this.factura=f;
     }
     public void cancelarReserva() {
         setEstadoReserva(EstadoReserva.Cancelada);

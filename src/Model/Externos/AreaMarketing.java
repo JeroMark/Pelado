@@ -5,6 +5,8 @@ import Model.Interfaz.ObserverReserva;
 import Model.Interfaz.ServicioMensajeria;
 import Model.MensajeMail;
 
+import java.util.ArrayList;
+
 public class AreaMarketing implements ObserverReserva {
     private String mail;
     private static AreaMarketing instancia;
@@ -26,7 +28,10 @@ public class AreaMarketing implements ObserverReserva {
     public void setMail(String mail) {
         this.mail = mail;
     }
-
+    public void enviarPromociones(ArrayList<String> contactos){
+        ServicioMensajeria notificador=new MensajeMail();
+        notificador.enviarPromocion(contactos,"promocion");
+    }
     @Override
     public void notificarObserver(int idReserva, EstadoReserva estadoReserva) {
         ServicioMensajeria notificador = new MensajeMail();

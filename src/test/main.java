@@ -73,7 +73,7 @@ public class main {
         ArrayList<Integer> hab=new ArrayList<>(); hab.add(9);
         System.out.println("Crea la reserva");
         Controlador.getInstancia().crearReserva(hab,new Date(124, 11, 21),new Date(125,0,1),
-                55667788, MedioDePago.Efectivo);
+                55667788, MedioDePago.Transferencia);
         Controlador.getInstancia().mostrarReservas();
         Controlador.getInstancia().PagarReserva(6);
     }
