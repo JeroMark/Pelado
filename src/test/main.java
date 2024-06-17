@@ -9,7 +9,7 @@ import Model.Enum.ExtrasHabitacion;
 import Model.Enum.MedioDePago;
 import Model.Enum.TipoContacto;
 import Model.Enum.TipoHabitacion;
-import Model.Filtro;
+import Model.FiltroBuilderImpl;
 import View.HabitacionView;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,16 +18,11 @@ public class main {
     public static void main (String[] args){
         //Los meses es mas 1 años -1900
 
-       cancerlaReserva();
+        buscarHabitacionConDeterminadoFiltroYReservar();
 
 
 
     }
-
-
-
-
-
 
 
     private static void reporte(){
@@ -62,11 +57,12 @@ public class main {
         }catch (LogginException e){
             System.out.println(e.getMessage());
         }
-        Filtro filtro=new Filtro();
-        filtro.setTv(); filtro.setDespertador(); filtro.setTipoDeHabitacion(TipoHabitacion.Suite); filtro.setCantidadDePersonas(2);filtro.setCheckIn(new Date(124, 11, 21));
-        filtro.setCheckOut(new Date(125,0,1));
+        FiltroBuilderImpl filtradobuild=new FiltroBuilderImpl() ;
+        filtradobuild.conTv(); filtradobuild.conDespertador(); filtradobuild.tipoDeHabitacion(TipoHabitacion.Suite);
+        filtradobuild.cantidadDePersonas(2); filtradobuild.setCheckIn(new Date(124, 11, 21));
+        filtradobuild.setCheckOut(new Date(125,0,1));
         try {
-            ArrayList<HabitacionView> cumplen= Controlador.getInstancia().buscarHabitacion(filtro);
+            ArrayList<HabitacionView> cumplen= Controlador.getInstancia().buscarHabitacion(filtradobuild.build());
             for (HabitacionView habitacion:cumplen){
                 System.out.println("------------------Cumple---------------");
                 System.out.println(habitacion.toString());
@@ -82,15 +78,13 @@ public class main {
         Controlador.getInstancia().PagarReserva(6);
     }
     private static void FiltroSinResultado(){
-        Filtro filtro=new Filtro();
-        filtro.setDespertador();
-        filtro.setTv();
-        filtro.setCantidadDePersonas(4);
-        filtro.setTipoDeHabitacion(TipoHabitacion.Estandar);
-        filtro.setCheckIn(new Date(124, 6, 24));
-        filtro.setCheckOut(new Date(124, 6, 30));
+        FiltroBuilderImpl filtador=new FiltroBuilderImpl();
+        filtador.conDespertador(); filtador.conDespertador();filtador.conTv();filtador.cantidadDePersonas(4);
+        filtador.tipoDeHabitacion(TipoHabitacion.Estandar);
+        filtador.setCheckIn(new Date(124, 6, 24));
+        filtador.setCheckOut(new Date(124, 6, 30));
         try {
-            ArrayList<HabitacionView> cumplen= Controlador.getInstancia().buscarHabitacion(filtro);
+            ArrayList<HabitacionView> cumplen= Controlador.getInstancia().buscarHabitacion(filtador.build());
             for (HabitacionView habitacion:cumplen){
                 System.out.println("------------------Cumple---------------");
                 System.out.println(habitacion.toString());

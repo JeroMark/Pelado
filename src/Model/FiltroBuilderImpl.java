@@ -44,6 +44,13 @@ public class FiltroBuilderImpl implements HabitacionBuilder {
     public void conMiniBar() {
         filtro.setMinibar();
     }
+    public void setCheckIn(Date checkIn) {
+        filtro.setCheckIn(checkIn);
+    }
+
+    public void setCheckOut(Date checkOut) {
+        filtro.setCheckOut(checkOut);
+    }
     public Filtro build(){
         Filtro devolver=this.filtro;
         reset();

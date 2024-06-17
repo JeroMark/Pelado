@@ -35,6 +35,7 @@ public class Reserva {
         this.cliente = cliente;
         this.medioPago = medioDePago;
         this.adminObserver =new ReservaObserverAdmin();
+        adminObserver.agregarObserver(this.cliente);
         detalleReservas=new ArrayList<>();
         crearDetallesReserva(habitacions, checkIn, checkOut);
         setStateReserva(checkIn);
